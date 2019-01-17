@@ -14,7 +14,12 @@ const App = () => {
         <div>
           <Header />
           <Route path="/" exact={true} component={StreamList} />
-          <Route path="/streams/new" exact={true} component={StreamCreate} />
+          <Route
+            path="/streams/new"
+            exact={true}
+            // tslint:disable-next-line:jsx-no-lambda
+            render={() => <StreamCreate />}
+          />
           <Route path="/streams/edit" exact={true} component={StreamEdit} />
           <Route path="/streams/show" component={StreamShow} />
           <Route path="/streams/delete" component={StreamDelete} />
