@@ -1,18 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { createStream } from "../../actions/streamActions";
 
 export interface IStream {
   title: string;
   description: string;
 }
-class StreamCreate extends Component<InjectedFormProps<IStream>, {}> {
+
+export interface IStreamProps {
+  createStream: (formValues: IStream) => void;
+}
+class StreamCreate extends Component<
+  InjectedFormProps<IStream, IStreamProps> & IStreamProps
+> {
   public render() {
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
       <div className="ui container">
-        <form
-          className="ui form error"
-          onSubmit={this.props.handleSubmit(this.onSubmit)}
-        >
+        <h2 className="ui header center aligned">Create a Stream</h2>
+        <form className="ui form error" onSubmit={handleSubmit(this.onSubmit)}>
           <Field
             name="title"
             component={this.renderInput}
@@ -23,7 +30,11 @@ class StreamCreate extends Component<InjectedFormProps<IStream>, {}> {
             component={this.renderInput}
             label="Enter Description"
           />
-          <button className="ui button primary" type="submit">
+          <button
+            className="ui button primary"
+            type="submit"
+            disabled={pristine || submitting}
+          >
             Create Stream
           </button>
         </form>
@@ -42,7 +53,8 @@ class StreamCreate extends Component<InjectedFormProps<IStream>, {}> {
   };
 
   private onSubmit = (formValues: IStream) => {
-    console.log(formValues);
+    this.props.createStream(formValues);
+    this.props.reset();
   };
 
   private renderError({ error, touched }: any) {
@@ -69,7 +81,12 @@ const validate = (formValues: IStream) => {
   return errors;
 };
 
-export default reduxForm<IStream>({
+const FormWrapper = reduxForm<IStream, IStreamProps>({
   form: "streamCreate",
   validate
 })(StreamCreate);
+
+export default connect(
+  null,
+  { createStream }
+)(FormWrapper);
