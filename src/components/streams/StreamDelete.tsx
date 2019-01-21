@@ -5,7 +5,7 @@ import { fetchStream } from "../../actions/streamActions";
 import { IStreamReducer } from "../../reducers/interfaces";
 import { IStoreState } from "../../store/interfaces";
 interface IStreamDeleteProps extends RouteComponentProps {
-  stream: IStreamReducer | {};
+  stream: IStreamReducer | null;
   fetchStream: (streamId: number) => void;
 }
 class StreamDelete extends Component<IStreamDeleteProps> {

@@ -37,8 +37,9 @@ export const createStream = (formValues: IStream) => async (
 export const editStream = (formValues: IStream, streamId: number) => async (
   dispatch: Dispatch<IEditStream>
 ) => {
-  const response = await streams.put(`/streams/${streamId}`, formValues);
+  const response = await streams.patch(`/streams/${streamId}`, formValues);
   dispatch({ type: EDIT_STREAM, payload: response.data });
+  history.push("/");
 };
 
 export const fetchStreams = () => async (dispatch: Dispatch<IFetchStreams>) => {

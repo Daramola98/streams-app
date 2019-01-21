@@ -15,5 +15,5 @@ export interface IStreamReducerState {
     streams: {
         [key: string]: IStreamReducer;
     } | {};
-    stream: IStreamReducer | {};
+    stream: IStreamReducer | null;
 }

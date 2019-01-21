@@ -10,7 +10,7 @@ import {
 import { IStreamReducer, IStreamReducerState } from "./interfaces";
 
 const initialState: IStreamReducerState = {
-  stream: {},
+  stream: null,
   streams: {}
 };
 
@@ -37,7 +37,7 @@ export default (
         action.payload.forEach((stream: IStreamReducer) => {
           fetchedStreams[stream.id] = stream;
         });
-        return { ...state, stream: {}, streams: fetchedStreams };
+        return { ...state, stream: null, streams: fetchedStreams };
       }
       return { ...state, streams: {} };
     case DELETE_STREAM:
