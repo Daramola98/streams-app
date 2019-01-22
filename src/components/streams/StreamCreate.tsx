@@ -8,10 +8,10 @@ export interface IStream {
   description: string;
 }
 
-export interface IStreamProps {
+export interface IStreamCreateProps {
   createStream: (formValues: IStream) => void;
 }
-class StreamCreate extends Component<IStreamProps> {
+export class StreamCreate extends Component<IStreamCreateProps> {
   public render() {
     return (
       <div className="ui container">

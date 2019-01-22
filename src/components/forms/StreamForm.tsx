@@ -10,7 +10,7 @@ export interface IStreamFormProps {
   formHeader: string;
   onSubmit: (formValues: IStream) => void;
 }
-class StreamForm extends Component<
+export class StreamForm extends Component<
   InjectedFormProps<IStream, IStreamFormProps> & IStreamFormProps
 > {
   public render() {

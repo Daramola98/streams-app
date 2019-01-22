@@ -5,12 +5,13 @@ import { deleteStream, fetchStream } from "../../actions/streamActions";
 import { IStreamReducer } from "../../reducers/interfaces";
 import { IStoreState } from "../../store/interfaces";
 import StreamDeleteModal from "../modals/StreamDeleteModal";
-interface IStreamDeleteProps extends RouteComponentProps {
+export interface IStreamDeleteProps {
   stream: IStreamReducer | null;
   fetchStream: (streamId: number) => void;
   deleteStream: (streamId: number) => void;
+  [key: string]: any;
 }
-class StreamDelete extends Component<IStreamDeleteProps> {
+export class StreamDelete extends Component<IStreamDeleteProps> {
   public componentDidMount() {
     this.props.fetchStream((this.props.match.params as any).id);
   }

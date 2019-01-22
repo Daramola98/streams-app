@@ -22,6 +22,7 @@ const Modal = ({
       className="ui dimmer modals visible active"
     >
       <div
+        id="outer-modal"
         // tslint:disable-next-line:jsx-no-lambda
         onClick={(event: SyntheticEvent) => event.stopPropagation()}
         className="ui standard modal visible active"
