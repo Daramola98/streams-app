@@ -13,8 +13,21 @@ class StreamShow extends Component<IStreamShowProps> {
     this.props.fetchStream((this.props.match.params as any).id);
   }
   public render() {
-    return <div>Stream Show</div>;
+    if (!this.props.stream) {
+      return <div>Loading...</div>;
+    }
+    return <div>{this.renderStream()}</div>;
   }
+
+  private renderStream = () => {
+    const { stream } = this.props;
+    return (
+      <div>
+        <h1>{stream!.title}</h1>
+        <h5>{stream!.description}</h5>
+      </div>
+    );
+  };
 }
 
 const mapStateToProps = ({ auth, streamReducer }: IStoreState) => ({
