@@ -1,3 +1,4 @@
+import flv from "flv.js";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
@@ -8,21 +9,50 @@ interface IStreamShowProps extends RouteComponentProps {
   stream: IStreamReducer | null;
   fetchStream: (streamId: number) => void;
 }
-class StreamShow extends Component<IStreamShowProps> {
+export class StreamShow extends Component<IStreamShowProps> {
+  public player: any;
+  public videoRef = React.createRef<HTMLVideoElement>();
+
   public componentDidMount() {
-    this.props.fetchStream((this.props.match.params as any).id);
+    const { id } = this.props.match.params as any;
+    this.props.fetchStream(id);
+    this.buildPlayer();
   }
+
+  public componentWillUnmount() {
+    this.player.destroy();
+  }
+
+  public componentDidUpdate() {
+    this.buildPlayer();
+  }
+
   public render() {
     if (!this.props.stream) {
       return <div>Loading...</div>;
     }
-    return <div>{this.renderStream()}</div>;
+    return <div className="ui container">{this.renderStream()}</div>;
   }
+
+  private buildPlayer = () => {
+    const { id } = this.props.match.params as any;
+    if (this.player || !this.props.stream) {
+      return;
+    }
+
+    this.player = flv.createPlayer({
+      type: "flv",
+      url: `http://localhost:8000/live/${id}.flv`
+    });
+    this.player.attachMediaElement(this.videoRef.current);
+    this.player.load();
+  };
 
   private renderStream = () => {
     const { stream } = this.props;
     return (
       <div>
+        <video controls={true} ref={this.videoRef} style={{ width: "100%" }} />
         <h1>{stream!.title}</h1>
         <h5>{stream!.description}</h5>
       </div>
