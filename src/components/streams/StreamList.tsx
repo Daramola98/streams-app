@@ -11,7 +11,7 @@ export interface IStreamListProps {
   fetchStreams: () => void;
   isSignedIn: boolean | null;
 }
-class StreamList extends Component<IStreamListProps> {
+export class StreamList extends Component<IStreamListProps> {
   public componentDidMount() {
     this.props.fetchStreams();
   }

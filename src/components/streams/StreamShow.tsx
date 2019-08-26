@@ -5,9 +5,10 @@ import { RouteComponentProps } from "react-router";
 import { fetchStream } from "../../actions/streamActions";
 import { IStreamReducer } from "../../reducers/interfaces";
 import { IStoreState } from "../../store/interfaces";
-interface IStreamShowProps extends RouteComponentProps {
+interface IStreamShowProps {
   stream: IStreamReducer | null;
   fetchStream: (streamId: number) => void;
+  [key: string]: any;
 }
 export class StreamShow extends Component<IStreamShowProps> {
   public player: any;

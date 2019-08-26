@@ -5,12 +5,13 @@ import { editStream, fetchStream } from "../../actions/streamActions";
 import { IStreamReducer } from "../../reducers/interfaces";
 import { IStoreState } from "../../store/interfaces";
 import StreamForm, { IStream } from "../forms/StreamForm";
-interface IStreamEditProps extends RouteComponentProps {
+export interface IStreamEditProps {
   stream: IStreamReducer | null;
   fetchStream: (streamId: number) => void;
   editStream: (formValues: IStream, streamId: number) => void;
+  [key: string]: any;
 }
-class StreamEdit extends Component<IStreamEditProps> {
+export class StreamEdit extends Component<IStreamEditProps> {
   public componentDidMount() {
     this.props.fetchStream((this.props.match.params as any).id);
   }
